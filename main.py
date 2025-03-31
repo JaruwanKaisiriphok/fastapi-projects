@@ -1,9 +1,15 @@
 from fastapi import FastAPI
 from enum import Enum
+from pydantic import BaseModel
+
+from fastapi import Response
+from datetime import date
+
+import json
 
 app = FastAPI()
 
-@app.get('/MyName')
+@app.get('/blog/MyName')
 def index():
     return {'message':'Hello Por !!! ...'}
 
@@ -25,3 +31,12 @@ def get_blog(id: int):
     return {'message':f'Blog with id {id}'}
 
 
+d = [
+    {"Name": "Pele Kanaphon", "date": date.today(), "Age": 17},
+    {"Name": "Por Jaruwan ", "date": date.today(), "Age": 52},
+]
+
+@app.get('/')
+async def MyData():    
+    json_str = json.dumps(d, indent=4, default=str)
+    return Response(content=json_str, media_type='application/json')
