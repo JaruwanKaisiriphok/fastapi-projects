@@ -24,7 +24,8 @@ class BlogType(str, Enum):
 
 @app.get('/blog/type/{typr}')
 def get_blog_type(typr: BlogType):
-    return {'message': f'Blog type {type}'}
+    return {'message': f'Blog type {typr}'}
+
 
 @app.get('/blog/{id}')
 def get_blog(id: int):
@@ -32,11 +33,16 @@ def get_blog(id: int):
 
 
 d = [
-    {"Name": "Pele Kanaphon", "date": date.today(), "Age": 17},
-    {"Name": "Por Jaruwan ", "date": date.today(), "Age": 52},
+    {"id": 1, "name": "Pele Kanaphon", "date": date.today().isoformat(), "age": 17},
+    {"id": 2, "name": "Por Jaruwan", "date": date.today().isoformat(), "age": 52},
 ]
 
-@app.get('/')
-async def MyData():    
-    json_str = json.dumps(d, indent=4, default=str)
-    return Response(content=json_str, media_type='application/json')
+@app.get("/")
+async def MyData():
+    # ห่อ array ด้วย key "data"
+    result = {
+        "data": d
+    }
+    json_str = json.dumps(result, indent=4)
+    return Response(content=json_str, media_type="application/json")
+
