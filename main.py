@@ -39,6 +39,9 @@ d = [
 
 @app.get("/")
 async def MyData():
-    json_str = json.dumps(d, indent=4, default=str)
+    # ห่อ array d ด้วย key "data"
+    result = {
+        "items": d
+    }
+    json_str = json.dumps(result, indent=4, default=str)
     return Response(content=json_str, media_type="application/json")
-
