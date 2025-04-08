@@ -9,11 +9,11 @@ import json
 
 app = FastAPI()
 
-@app.get('/blog/MyName')
+@app.get('/GetUser',tags=["Users"])
 def index():
     return {'message':'Hello Por !!! ...'}
 
-@app.get('/blog/all')
+@app.get('/Registrations',tags=["Patients"])
 def get_blog():
     return {'message':' All blogs provide'}
 
@@ -22,12 +22,12 @@ class BlogType(str, Enum):
     story = 'story'
     howto = 'howto'
 
-@app.get('/blog/type/{typr}')
+@app.get('/Update Patients/{typr}',tags=["Patients"])
 def get_blog_type(typr: BlogType):
     return {'message': f'Blog type {typr}'}
 
 
-@app.get('/blog/{id}')
+@app.get('/Booking/{id}',tags=["Booking"])
 def get_blog(id: int):
     return {'message':f'Blog with id {id}'}
 
